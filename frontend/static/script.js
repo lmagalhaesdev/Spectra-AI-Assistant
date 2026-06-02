@@ -24,13 +24,12 @@ chatform.addEventListener('submit', async (e) => {
             body: JSON.stringify({prompt: text, messages})
         });
         const data = await response.json();
-        if (data.code === 400) {
-            addMessage('Você precisa inserir mais de 5 caracteres.', 'bot')
-        } else if (data.code === 200) {
+        console.log(data)
+        if (data.generated_text) {
             addMessage(data.generated_text, 'bot');
             messages.push({role: 'assistant', content: data.generated_text});
         } else {
-            addMessage('Erro ao obter sua resposta. Tente novamente.', 'bot');
+            addMessage(data.error, 'bot');
         }
     } catch (error) {
         addMessage('Erro de conexão com o servidor. Tente novamente.', 'bot');
