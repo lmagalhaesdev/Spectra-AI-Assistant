@@ -24,10 +24,25 @@ def index():
 def generate():
     data = request.get_json()
     prompt = data.get('prompt', '')
+    history = data.get('messages', [])
+
     if not prompt or len(prompt.strip()) < 5:
         return jsonify({'error': 'Você precisa inserir mais de 5 caracteres.', 'code': 400}), 400
     try:
-        response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+        messages = []
+        for msg in history:
+            role = 'model' if msg['role'] == 'assistant' else 'user'
+            messages.append(
+                {
+                    'role': role,
+                    'parts': [
+                        {
+                            'text': msg['content']
+                        }
+                    ]
+                }
+            )
+        response = client.models.generate_content(model='gemini-2.5-flash', contents=messages)
         generated_text = response.text
         return jsonify({'generated_text': generated_text, 'code': 200}), 200
     except Exception as e:

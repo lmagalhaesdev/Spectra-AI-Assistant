@@ -24,7 +24,6 @@ chatform.addEventListener('submit', async (e) => {
             body: JSON.stringify({prompt: text, messages})
         });
         const data = await response.json();
-        console.log(data)
         if (data.generated_text) {
             addMessage(data.generated_text, 'bot');
             messages.push({role: 'assistant', content: data.generated_text});
