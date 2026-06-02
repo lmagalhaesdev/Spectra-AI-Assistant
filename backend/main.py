@@ -1,18 +1,24 @@
-#Import necessary libraries
+# Import necessary libraries
+
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-import google.generativeai as genai
+from google import genai
 import logging
 import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 logging.basicConfig(level=logging.INFO)
-model = genai.GenerativeModel('gemini-2.5-flash')
+load_dotenv()
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+client = genai.Client(api_key=GEMINI_API_KEY)
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/api/generate', methods=['POST'])
 def generate():
@@ -21,13 +27,13 @@ def generate():
     if not prompt or len(prompt.strip()) < 5:
         return jsonify({'error': 'Prompt is required and must be at least 5 characters long'}), 400
     try:
-        model = genai.GenerativeModel('gemini-2.5-flash')
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
         generated_text = response.text
         return jsonify({'generated_text': generated_text})
     except Exception as e:
         logging.error(f"Error generating response: {e}")
         return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
