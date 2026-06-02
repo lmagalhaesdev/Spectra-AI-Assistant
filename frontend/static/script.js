@@ -24,10 +24,12 @@ chatform.addEventListener('submit', async (e) => {
             body: JSON.stringify({prompt: text, messages})
         });
         const data = await response.json();
-        if (data.generated_text){
+        if (data.code === 400) {
+            addMessage('Você precisa inserir mais de 5 caracteres.', 'bot')
+        } else if (data.code === 200) {
             addMessage(data.generated_text, 'bot');
             messages.push({role: 'assistant', content: data.generated_text});
-        }else{
+        } else {
             addMessage('Erro ao obter sua resposta. Tente novamente.', 'bot');
         }
     } catch (error) {
@@ -49,7 +51,7 @@ function addMessage(text, sender) {
 
 //permitir o envio com enter
 userinput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey){
+    if (e.key === 'Enter' && !e.shiftKey) {
         chatform.dispatchEvent(new Event('submit'));
         e.preventDefault();
     }

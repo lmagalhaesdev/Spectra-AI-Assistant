@@ -25,14 +25,14 @@ def generate():
     data = request.get_json()
     prompt = data.get('prompt', '')
     if not prompt or len(prompt.strip()) < 5:
-        return jsonify({'error': 'Prompt is required and must be at least 5 characters long'}), 400
+        return jsonify({'error': 'Prompt is required and must be at least 5 characters long', 'code': 400}), 400
     try:
         response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
         generated_text = response.text
-        return jsonify({'generated_text': generated_text})
+        return jsonify({'generated_text': generated_text, 'code': 200}), 200
     except Exception as e:
         logging.error(f"Error generating response: {e}")
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e), 'code': 500}), 500
 
 
 if __name__ == '__main__':
