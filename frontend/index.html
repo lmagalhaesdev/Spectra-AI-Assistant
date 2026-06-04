@@ -1,48 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Spectra AI Assistant</title>
-        <link rel="stylesheet" href="./static/style.css">
-        <link rel="icon" type="image/x-icon" href="../assets/logocelebro.png">
-    </head>
-    <body>
-        <nav>
-            <div class="navbar">
-                <a href="#chat-section" class="logo">
-                    <span class="logo-img-bg"><img src="./assets/Spectra AI Assistant.png" alt="logo"></span>
-                    <span class="status-badge">Beta</span>
-                    <span class="logo-text">Spectra AI Assistant</span>
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#chat-section">Home</a></li>
-                    <li><a href="#about">Sobre</a></li>
-                    <li><a href="https://github.com/BrunoSouzz">GitHub</a></li>
-                    <li><a href="#https://bruno-amorim-portifolio.vercel.app/">Portifólio</a></li>
-                </ul>
-                <button id="theme-toggle">🌙</button>
-                <button class="menu-toggle">☰</button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spectra AI Assistant</title>
+    <link rel="stylesheet" href="./static/style.css">
+    <link rel="icon" type="image/x-icon" href="./assets/logocelebro.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="#home" class="logo">
+                <img src="./assets/Spectra AI Assistant.png" alt="Spectra AI Assistant Logo">
+                <span class="logo-text">Spectra AI Assistant</span>
+                <span class="status-badge">Beta</span>
+            </a>
+            <ul class="nav-links" id="nav-links-mobile">
+                <li><a href="#chat-section">Home</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="https://github.com/BrunoSouzz" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://bruno-amorim-portifolio.vercel.app/" target="_blank" rel="noopener noreferrer">Portfólio</a></li>
+            </ul>
+
+            <div class="nav-controls">
+                <button id="theme-toggle" class="icon-button" aria-label="Alternar tema">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="menu-toggle icon-button" aria-label="Abrir menu de navegação">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
             </div>
         </nav>
-        <section id="chat-section">
-            <div id="chat-history" aria-live="polite"></div>
-            <form id="chat-form" autocomplete="off">
+    </header>
+
+    <main id="home">
+        <section id="chat-section" class="card-section">
+            <div class="section-header">
+                <h2>Seu Assistente de IA</h2>
+                <p>Converse com o Spectra para obter respostas rápidas e precisas.</p>
+            </div>
+            <div id="chat-history" class="chat-history" aria-live="polite"></div>
+            <form id="chat-form" class="chat-form" autocomplete="off">
                 <label for="user-input" class="sr-only">Digite sua dúvida</label>
                 <input type="text" id="user-input" placeholder="Tire sua dúvida aqui..." autocomplete="off" aria-label="Digite sua mensagem" required>
-                <button type="submit" id="send-btn" aria-label="Enviar mensagem"><svg width="20" viewBox="0 0 24 24" fill="none"> <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/></svg></button>
+                <button type="submit" id="send-btn" class="icon-button send-button" aria-label="Enviar mensagem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
             </form>
-            <div id="typing-indicator">Spectra está Pensando...</div>
+            <div id="typing-indicator" class="typing-indicator">Spectra está Pensando...</div>
         </section>
-        <section id="about">
-            <h2>Sobre o Spectra AI Assistant</h2>
+
+        <section id="about" class="card-section">
+            <div class="section-header">
+                <h2>Sobre o Spectra AI Assistant</h2>
+            </div>
             <p>O Spectra AI Assistant é um chatbot inteligente desenvolvido para fornecer respostas rápidas e precisas às suas dúvidas. Ele utiliza tecnologias avançadas de processamento de linguagem natural para entender suas perguntas e oferecer soluções eficazes.</p>
             <p>Nosso objetivo é criar uma experiência de usuário fluida e intuitiva, permitindo que você obtenha as informações que precisa de forma rápida e fácil. O Spectra está em constante evolução, aprendendo com cada interação para melhorar suas respostas ao longo do tempo.</p>
         </section>
-        <section class="footer-section">
-            <footer>&copy; 2026 Dev-BrunoAmorim. Todos os direitos reservados.</footer>
-        </section>
-        <script src="static/botoes.js" defer></script>
-        <script src="static/script.js" defer></script>
-    </body>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Dev-BrunoAmorim. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="static/script.js" defer></script>
+</body>
 </html>
