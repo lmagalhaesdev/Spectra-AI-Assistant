@@ -17,7 +17,7 @@ client = genai.Client(api_key=GEMINI_API_KEY)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('frontend/index.html')
 
 
 @app.route('/api/generate', methods=['POST'])
