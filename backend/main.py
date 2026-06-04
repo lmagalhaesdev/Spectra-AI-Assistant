@@ -42,6 +42,19 @@ def generate():
                     ]
                 }
             )
+        
+        if not messages or (messages and messages[-1]['parts'][0]['text'] != prompt):
+            messages.append(
+                {
+                    'role': 'user',
+                    'parts': [
+                        {
+                            'text': prompt
+                        }
+                    ]
+                }
+            )
+
         response = client.models.generate_content(model='gemini-2.5-flash', contents=messages)
         generated_text = response.text
         return jsonify({'generated_text': generated_text, 'code': 200}), 200
@@ -49,7 +62,7 @@ def generate():
         logging.error(f"Error generating response: {e}")
         status_code = getattr(e, 'code', 500)
         message = "Erro interno no servidor."
-
+        print(e)
         if status_code == 429:
             message = "Limite de requisições diárias atingido. Tente novamente mais tarde."
         elif status_code == 503:
@@ -62,3 +75,4 @@ def generate():
 
 if __name__ == '__main__':
     app.run(debug=True)
+    
